@@ -12,99 +12,11 @@
 
 #include "push_swap.h"
 
-int	*array_copy(t_stack *stack)
-{
-	int		*array;
-	ssize_t	i;
-	t_node	*ref;
-
-	i = 0;
-	array = malloc(sizeof(int) * stack->size);
-	if (array == NULL)
-		return (NULL);
-	ref = stack->top;
-	while (i < stack->size)
-	{
-		array[i] = ref->value;
-		ref = ref->next;
-		i++;
-	}
-	return (array);
-}
-
-int	sort_and_dupli_check(int *array, t_stack *stack)
-{
-	ssize_t	i;
-	ssize_t	j;
-	int		tmp;
-
-	i = 0;
-	tmp = 0;
-	while (i < stack->size)
-	{
-		j = i;
-		while (j > 0 && array[j] < array[j - 1])
-		{
-			tmp = array[j];
-			array[j] = array[j - 1];
-			array[j - 1] = tmp;
-			j--;
-		}
-		if (array[j] == array[j - 1])
-			return (-1);
-		i++;
-	}
-	return (0);
-}
-
-ssize_t	search_rank(int value, int *array)
-{
-	ssize_t	rank;
-
-	rank = 0;
-	while (value != array[rank])
-		rank++;
-	return (rank);
-}
-void	change_to_rank(t_stack *stack, const int *array)
-{
-	ssize_t	i;
-	t_node	*ref;
-
-	ref = stack->top;
-	i = 0;
-	while (i < stack->size)
-	{
-		ref->value = search_rank(ref->value, array);
-		i++;
-		ref = ref->next;
-	}
-}
-
-void	make_rank(t_stack *stack)
-{
-	int	*array;
-
-	array = array_copy(stack);
-	if (array == NULL)
-	{
-		put_error_invalid(stack);
-		return ;
-	}
-	if (sort_and_dupli_check(array, stack) == -1)
-	{
-		put_error_invalid(stack);
-		return ;
-	}
-	change_to_rank(stack, array);
-	//もとの配列free
-	return ;
-}
 
 int	fill_stack_a(int argc, char **argv, t_stack *stack)
 {
 	ssize_t		i;
-	ssize_t	tmp;
+	ssize_t		tmp;
 	t_node		*target;
 
 	i = 1;
@@ -112,10 +24,10 @@ int	fill_stack_a(int argc, char **argv, t_stack *stack)
 	{
 		tmp = ft_atol(argv[i]);
 		if (tmp > INT_MAX || tmp < INT_MIN)
-			return (put_error_invalid(stack), -1); //エラー処理でstackfreeしたい
+			return (put_error_invalid(), -1);
 		target = make_new_node((int)tmp);
 		if (target == NULL)
-			return (put_error_invalid(stack), -1); //エラー処理でstackfreeしたい
+			return (put_error_invalid(), -1);
 		push_first(stack, target);
 		i++;
 	}
@@ -129,8 +41,16 @@ int	main(int argc, char **argv)
 
 	if (argc == 1)
 		return (0);
-	stack_a->top = fill_array(argc, argv);
+	if(fill_stack_a(argc, argv, stack_a) == -1)
+		return(0);
 	make_rank(stack_a);
+	if(is_sorted(stack_a))
+		return(stack_free(stack_a), 0);
+	if(stack_a->size <= 5)
+		under_five_pattern(stack_a, stack_b);
+	else
+		chunk_sort(stack_a, stack_b);
+	return(stack_free(stack_a), 0);
 }
 //コマンドライン引数でint配列受取(long)
 //引数なしエラー処理(argc == 1)
@@ -142,7 +62,7 @@ int	main(int argc, char **argv)
 //ここで重複値,int範囲外チェックエラーならfreeしてエラー出す
 //元の数値を渡したらランクを返す関数を作成(二分探索)
 // Aスタックのリストに入っている数値をすべてランクに置換
-//圧縮用の配列はfree<-----------------------------------いまここ
+//圧縮用の配列はfree
 // swap動作関数をそれぞれ定義,出力と操作を同時に行うように
 //ブール型でis_sorted関数を作成
 //この段階（初期）でのAランクリストの要素数(サイズ)が5個以下なら特別パターンで最短ソート
@@ -153,6 +73,6 @@ int	main(int argc, char **argv)
 // pbしたあと、送った数値がチャンクの中央値以下であればrb実行でBを軽い降順にしておく
 //最初のチャンク幅の数値をすべてBに送り終わったら次のチャンク幅を考える
 // Aが空になるとき、Bは完璧ではないが軽い降順になっている
-//ランクの最大値をBから探し、最短手順(rbかrrb)で先頭に持ってきて、paでAに送る
+//ランクの最大値をBから探し、最短手順(rbかrrb)で先頭に持ってきて、paでAに送る<-----------------------------------いまここ
 //次に大きい値をBから探し、最短手順で先頭に回し、Aに送る
 //これをBが空になるまで行うと自動的に昇順でAが完成する

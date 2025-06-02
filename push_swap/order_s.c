@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	swap_first_two(t_stack *stack)
+static	swap_first_two(t_stack *stack)
 {
 	int	tmp;
 
@@ -25,21 +25,21 @@ void	swap_first_two(t_stack *stack)
 	return ;
 }
 
-void	order_sa(t_stack *stack_a)
+void	sa(t_stack *stack_a)
 {
 	write(1, "sa\n", 3);
 	swap_first_two(stack_a);
 	return ;
 }
 
-void	order_sb(t_stack *stack_b)
+void	sb(t_stack *stack_b)
 {
 	write(1, "sb\n", 3);
 	swap_first_two(stack_b);
 	return ;
 }
 
-void	order_ss(t_stack *stack_a, t_stack *stack_b)
+void	ss(t_stack *stack_a, t_stack *stack_b)
 {
 	write(1, "ss\n", 3);
 	swap_first_two(stack_a);

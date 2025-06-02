@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int	rotate_stack(t_stack *stack)
+static int	rotate_stack(t_stack *stack)
 {
 	if (stack->size <= 1)
 		return (-1);
@@ -20,7 +20,7 @@ int	rotate_stack(t_stack *stack)
 	return (1);
 }
 
-void	order_ra(t_stack *stack_a)
+void	ra(t_stack *stack_a)
 {
 	if (rotate_stack(stack_a) == -1)
 		return ;
@@ -28,7 +28,7 @@ void	order_ra(t_stack *stack_a)
 	return ;
 }
 
-void	order_rb(t_stack *stack_b)
+void	rb(t_stack *stack_b)
 {
 	if (rotate_stack(stack_b) == -1)
 		return ;
@@ -36,7 +36,7 @@ void	order_rb(t_stack *stack_b)
 	return ;
 }
 
-void	order_rr(t_stack *stack_a, t_stack *stack_b)
+void	rr(t_stack *stack_a, t_stack *stack_b)
 {
 	rotate_stack(stack_a);
 	rotate_stack(stack_b);

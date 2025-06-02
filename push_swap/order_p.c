@@ -54,7 +54,7 @@ void	push_first(t_stack *stack, t_node *target)
 	return ;
 }
 
-void	order_pa(t_stack *stack_a, t_stack *stack_b)
+void	pa(t_stack *stack_a, t_stack *stack_b)
 {
 	t_node	*target;
 
@@ -66,7 +66,7 @@ void	order_pa(t_stack *stack_a, t_stack *stack_b)
 	return ;
 }
 
-void	order_pb(t_stack *stack_a, t_stack *stack_b)
+void	pb(t_stack *stack_a, t_stack *stack_b)
 {
 	t_node	*target;
 
