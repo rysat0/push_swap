@@ -81,7 +81,7 @@ static void	change_to_rank(t_stack *stack, const int *array)
 	}
 }
 
-void	make_rank(t_stack *stack)
+int	make_rank(t_stack *stack)
 {
 	int	*array;
 
@@ -89,14 +89,14 @@ void	make_rank(t_stack *stack)
 	if (array == NULL)
 	{
 		put_error_invalid();
-		return ;
+		return(-1);
 	}
 	if (sort_and_dupli_check(array, stack) == -1)
 	{
 		put_error_free(array);
-		return ;
+		return(-1);
 	}
 	change_to_rank(stack, array);
 	free(array);
-	return ;
+	return(0);
 }

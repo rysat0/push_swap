@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-t_node	*pop_first(t_stack *stack)
+static t_node	*pop_first(t_stack *stack)
 {
 	t_node	*target;
 	t_node	*last;

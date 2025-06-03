@@ -43,11 +43,13 @@ long	ft_atol(const char *str)
 		num = 0;//文字ガード、数字のみ受け入れ
 	while (str[i] >= '0' && str[i] <= '9')
 	{
+		if((judge == 0 && num > INT_MAX) || (judge == 1 && num > (INT_MAX + 1)))
+			return(LONG_MAX);
 		num = (num * 10) + (str[i] - '0');
 		i++;
 	}
-	if (!(str[i] == ' ' || str[i] == '\t' ))
-		num = LONG_MAX;//文字ガード、数字のみ受け入れ
+	if (str[i] != '\0')
+		return(LONG_MAX);//文字ガード、数字のみ受け入れ
 	if (judge == 1)
 		num = -num;
 	return ((long)num);
@@ -85,7 +87,7 @@ int is_sorted(const t_stack *stack)
 	return(1);
 }
 
-void stack_free(t_stack *stack)
+void node_free(t_stack *stack)
 {
 	t_node *next;
 	if(stack->size == 0 || stack->top == NULL)
@@ -100,4 +102,28 @@ void stack_free(t_stack *stack)
 	free(stack->top);
 	stack->top = NULL;
 	stack->size--;
+}
+
+void stack_free(t_stack *stack_a, t_stack *stack_b)
+{
+	free(stack_a);
+	free(stack_b);
+}
+
+int malloc_initialize_stack(t_stack **stack_a, t_stack **stack_b)
+{
+	*stack_a = malloc(sizeof(t_stack));
+	if(*stack_a == NULL)
+		return(-1);
+	*stack_b = malloc(sizeof(t_stack));
+	if(*stack_b == NULL)
+	{
+		free(*stack_a);
+		return(-1);
+	}
+	(*stack_a)->size = 0;
+	(*stack_a)->top = NULL;
+	(*stack_b)->size = 0;
+	(*stack_b)->top = NULL;
+	return(0);
 }

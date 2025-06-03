@@ -24,10 +24,10 @@ int	fill_stack_a(int argc, char **argv, t_stack *stack)
 	{
 		tmp = ft_atol(argv[i]);
 		if (tmp > INT_MAX || tmp < INT_MIN)
-			return (put_error_invalid(), -1);
-		target = make_new_node((int)tmp);
+			return (put_error_invalid(), node_free(stack), -1);
+		target = make_new_node((int)tmp);//ここでnodeをmalloc
 		if (target == NULL)
-			return (put_error_invalid(), -1);
+			return (put_error_invalid(), node_free(stack), -1);
 		push_first(stack, target);
 		i++;
 	}
@@ -41,17 +41,21 @@ int	main(int argc, char **argv)
 
 	if (argc == 1)
 		return (0);
-	if(fill_stack_a(argc, argv, stack_a) == -1)
-		return(0);
-	make_rank(stack_a);
+	if(malloc_initialize_stack(&stack_a, &stack_b) == -1)
+		return(put_error_invalid(), 0);
+	if(fill_stack_a(argc, argv, stack_a) == -1)//ここ以降はnode,stackをfree
+		return(stack_free(stack_a, stack_b), 0);
+	if(make_rank(stack_a) == -1)
+		return(node_free(stack_a), stack_free(stack_a, stack_b), 0);
 	if(is_sorted(stack_a))
-		return(stack_free(stack_a), 0);
+		return(node_free(stack_a), stack_free(stack_a, stack_b), 0);
 	if(stack_a->size <= 5)
 		under_five_pattern(stack_a, stack_b);
 	else
 		chunk_sort(stack_a, stack_b);
-	return(stack_free(stack_a), 0);
+	return(node_free(stack_a), stack_free(stack_a, stack_b), 0);
 }
+
 //コマンドライン引数でint配列受取(long)
 //引数なしエラー処理(argc == 1)
 //双方向循環リストとスタックをまとめる構造体を定義
@@ -76,3 +80,7 @@ int	main(int argc, char **argv)
 //ランクの最大値をBから探し、最短手順(rbかrrb)で先頭に持ってきて、paでAに送る<-----------------------------------いまここ
 //次に大きい値をBから探し、最短手順で先頭に回し、Aに送る
 //これをBが空になるまで行うと自動的に昇順でAが完成する
+
+//stack free
+//node free
+//array free
