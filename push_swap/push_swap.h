@@ -59,4 +59,4 @@ void	push_to_a(t_stack *stack_a, t_stack *stack_b);
 void 	node_free(t_stack *stack);
 void 	stack_free(t_stack *stack_a, t_stack *stack_b);
 int 	malloc_initialize_stack(t_stack **stack_a, t_stack **stack_b);
-
+void	push_last(t_stack *stack, t_node *target);

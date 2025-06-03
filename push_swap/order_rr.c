@@ -24,7 +24,7 @@ void	rra(t_stack *stack_a)
 {
 	if (reverse_rotate_stack(stack_a) == -1)
 		return ;
-	write(1, "rra\n", 3);
+	write(1, "rra\n", 4);
 	return ;
 }
 
@@ -32,7 +32,7 @@ void	rrb(t_stack *stack_b)
 {
 	if (reverse_rotate_stack(stack_b) == -1)
 		return ;
-	write(1, "rrb\n", 3);
+	write(1, "rrb\n", 4);
 	return ;
 }
 
@@ -40,7 +40,7 @@ void	rrr(t_stack *stack_a, t_stack *stack_b)
 {
 	reverse_rotate_stack(stack_a);
 	reverse_rotate_stack(stack_b);
-	write(1, "rrr\n", 3);
+	write(1, "rrr\n", 4);
 	return ;
 }
 

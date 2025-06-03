@@ -28,7 +28,7 @@ int	fill_stack_a(int argc, char **argv, t_stack *stack)
 		target = make_new_node((int)tmp);//ここでnodeをmalloc
 		if (target == NULL)
 			return (put_error_invalid(), node_free(stack), -1);
-		push_first(stack, target);
+		push_last(stack, target);//ここ
 		i++;
 	}
 	return (0);

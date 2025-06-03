@@ -66,7 +66,7 @@ static ssize_t	search_rank(int value, int *array)
 		rank++;
 	return (rank);
 }
-static void	change_to_rank(t_stack *stack, const int *array)
+static void	change_to_rank(t_stack *stack, int *array)
 {
 	ssize_t	i;
 	t_node	*ref;

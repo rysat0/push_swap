@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-static int define_chunk_width(t_stack *stack_a, size_t *span)
+static int define_chunk_width(t_stack *stack_a, int *span)
 {
 	int quantity;
 
