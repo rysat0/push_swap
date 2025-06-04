@@ -5,32 +5,33 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rysato <rysato@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/02 13:47:18 by rysato            #+#    #+#             */
-/*   Updated: 2025/06/02 13:47:18 by rysato           ###   ########.fr       */
+/*   Created: 2025/06/04 16:52:39 by rysato            #+#    #+#             */
+/*   Updated: 2025/06/04 16:52:39 by rysato           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void sort_four_ver5(t_stack *stack_a, t_stack *stack_b)
+
+void	sort_four_ver5(t_stack *stack_a, t_stack *stack_b)
 {
-	//01がトップに来るまでra or ref->prev->value == 1ならrra
-	//1をpb
-	//sort_three_ver5でAスタックを成型
-	//1をpaして終了
+	// 01がトップに来るまでra or ref->prev->value == 1ならrra
+	// 1をpb
+	// sort_three_ver5でAスタックを成型
+	// 1をpaして終了
 	t_node *ref;
 
 	ref = stack_a->top;
-	if(ref->value == 1)
+	if (ref->value == 1)
 		pb(stack_a, stack_b);
-	else if(ref->prev->value == 1)
+	else if (ref->prev->value == 1)
 	{
 		rra(stack_a);
 		pb(stack_a, stack_b);
 	}
 	else
 	{
-		while(stack_a->top->value != 1)
+		while (stack_a->top->value != 1)
 			ra(stack_a);
 		pb(stack_a, stack_b);
 	}
@@ -38,48 +39,48 @@ void sort_four_ver5(t_stack *stack_a, t_stack *stack_b)
 	pa(stack_a, stack_b);
 }
 
-void sort_three_ver5(t_stack *stack_a)
+void	sort_three_ver5(t_stack *stack_a)
 {
 	t_node *ref;
 
 	ref = stack_a->top;
-	if(ref->value == 2 || ref->next->value == 4)
+	if (ref->value == 2 || ref->next->value == 4)
 	{
 		ra(stack_a);
 		sa(stack_a);
 		rra(stack_a);
 	}
-	else if(ref->value == 3 && ref->next->value == 2)
+	else if (ref->value == 3 && ref->next->value == 2)
 		sa(stack_a);
-	else if(ref->value == 3 && ref->next->value == 4)
+	else if (ref->value == 3 && ref->next->value == 4)
 		rra(stack_a);
-	else if(ref->value == 4 && ref->next->value == 2)
+	else if (ref->value == 4 && ref->next->value == 2)
 		ra(stack_a);
-	else if(ref->value == 4 && ref->next->value == 3)
+	else if (ref->value == 4 && ref->next->value == 3)
 	{
 		sa(stack_a);
 		rra(stack_a);
 	}
 }
 
-void sort_three_ver4(t_stack *stack_a)
+void	sort_three_ver4(t_stack *stack_a)
 {
 	t_node *ref;
 
 	ref = stack_a->top;
-	if(ref->value == 1 || ref->next->value == 3)
+	if (ref->value == 1 || ref->next->value == 3)
 	{
 		ra(stack_a);
 		sa(stack_a);
 		rra(stack_a);
 	}
-	else if(ref->value == 2 && ref->next->value == 1)
+	else if (ref->value == 2 && ref->next->value == 1)
 		sa(stack_a);
-	else if(ref->value == 2 && ref->next->value == 3)
+	else if (ref->value == 2 && ref->next->value == 3)
 		rra(stack_a);
-	else if(ref->value == 3 && ref->next->value == 1)
+	else if (ref->value == 3 && ref->next->value == 1)
 		ra(stack_a);
-	else if(ref->value == 3 && ref->next->value == 2)
+	else if (ref->value == 3 && ref->next->value == 2)
 	{
 		sa(stack_a);
 		rra(stack_a);

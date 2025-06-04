@@ -5,18 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rysato <rysato@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/31 20:31:36 by rysato            #+#    #+#             */
-/*   Updated: 2025/06/01 15:21:30 by rysato           ###   ########.fr       */
+/*   Created: 2025/06/04 16:52:57 by rysato            #+#    #+#             */
+/*   Updated: 2025/06/04 16:52:57 by rysato           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+
 static int	*array_copy(t_stack *stack)
 {
-	int		*array;
-	ssize_t	i;
-	t_node	*ref;
+	int *array;
+	ssize_t i;
+	t_node *ref;
 
 	i = 0;
 	array = malloc(sizeof(int) * stack->size);
@@ -34,9 +35,9 @@ static int	*array_copy(t_stack *stack)
 
 static int	sort_and_dupli_check(int *array, t_stack *stack)
 {
-	ssize_t	i;
-	ssize_t	j;
-	int		tmp;
+	ssize_t i;
+	ssize_t j;
+	int tmp;
 
 	i = 0;
 	tmp = 0;
@@ -59,17 +60,18 @@ static int	sort_and_dupli_check(int *array, t_stack *stack)
 
 static ssize_t	search_rank(int value, int *array)
 {
-	ssize_t	rank;
+	ssize_t rank;
 
 	rank = 0;
 	while (value != array[rank])
 		rank++;
 	return (rank);
 }
+
 static void	change_to_rank(t_stack *stack, int *array)
 {
-	ssize_t	i;
-	t_node	*ref;
+	ssize_t i;
+	t_node *ref;
 
 	ref = stack->top;
 	i = 0;
@@ -83,20 +85,20 @@ static void	change_to_rank(t_stack *stack, int *array)
 
 int	make_rank(t_stack *stack)
 {
-	int	*array;
+	int *array;
 
 	array = array_copy(stack);
 	if (array == NULL)
 	{
 		put_error_invalid();
-		return(-1);
+		return (-1);
 	}
 	if (sort_and_dupli_check(array, stack) == -1)
 	{
 		put_error_free(array);
-		return(-1);
+		return (-1);
 	}
 	change_to_rank(stack, array);
 	free(array);
-	return(0);
+	return (0);
 }

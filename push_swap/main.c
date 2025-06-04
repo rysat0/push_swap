@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rysato <rysato@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/31 20:31:33 by rysato            #+#    #+#             */
-/*   Updated: 2025/06/01 22:05:41 by rysato           ###   ########.fr       */
+/*   Created: 2025/06/04 16:53:34 by rysato            #+#    #+#             */
+/*   Updated: 2025/06/04 16:53:34 by rysato           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 int	fill_stack_a(int argc, char **argv, t_stack *stack)
 {
-	ssize_t		i;
-	ssize_t		tmp;
-	t_node		*target;
+	ssize_t	i;
+	ssize_t	tmp;
+	t_node	*target;
 
 	i = 1;
 	while (i < argc)
@@ -25,10 +25,10 @@ int	fill_stack_a(int argc, char **argv, t_stack *stack)
 		tmp = ft_atol(argv[i]);
 		if (tmp > INT_MAX || tmp < INT_MIN)
 			return (put_error_invalid(), node_free(stack), -1);
-		target = make_new_node((int)tmp);//ここでnodeをmalloc
+		target = make_new_node((int)tmp);
 		if (target == NULL)
 			return (put_error_invalid(), node_free(stack), -1);
-		push_last(stack, target);//ここ
+		push_last(stack, target);
 		i++;
 	}
 	return (0);
@@ -41,19 +41,19 @@ int	main(int argc, char **argv)
 
 	if (argc == 1)
 		return (0);
-	if(malloc_initialize_stack(&stack_a, &stack_b) == -1)
-		return(put_error_invalid(), 0);
-	if(fill_stack_a(argc, argv, stack_a) == -1)//ここ以降はnode,stackをfree
-		return(stack_free(stack_a, stack_b), 0);
-	if(make_rank(stack_a) == -1)
-		return(node_free(stack_a), stack_free(stack_a, stack_b), 0);
-	if(is_sorted(stack_a))
-		return(node_free(stack_a), stack_free(stack_a, stack_b), 0);
-	if(stack_a->size <= 5)
+	if (malloc_initialize_stack(&stack_a, &stack_b) == -1)
+		return (put_error_invalid(), 0);
+	if (fill_stack_a(argc, argv, stack_a) == -1)
+		return (stack_free(stack_a, stack_b), 0);
+	if (make_rank(stack_a) == -1)
+		return (node_free(stack_a), stack_free(stack_a, stack_b), 0);
+	if (is_sorted(stack_a))
+		return (node_free(stack_a), stack_free(stack_a, stack_b), 0);
+	if (stack_a->size <= 5)
 		under_five_pattern(stack_a, stack_b);
 	else
 		chunk_sort(stack_a, stack_b);
-	return(node_free(stack_a), stack_free(stack_a, stack_b), 0);
+	return (node_free(stack_a), stack_free(stack_a, stack_b), 0);
 }
 
 //コマンドライン引数でint配列受取(long)
@@ -77,10 +77,10 @@ int	main(int argc, char **argv)
 // pbしたあと、送った数値がチャンクの中央値以下であればrb実行でBを軽い降順にしておく
 //最初のチャンク幅の数値をすべてBに送り終わったら次のチャンク幅を考える
 // Aが空になるとき、Bは完璧ではないが軽い降順になっている
-//ランクの最大値をBから探し、最短手順(rbかrrb)で先頭に持ってきて、paでAに送る<-----------------------------------いまここ
+//ランクの最大値をBから探し、最短手順(rbかrrb)で先頭に持ってきて、paでAに送る
 //次に大きい値をBから探し、最短手順で先頭に回し、Aに送る
 //これをBが空になるまで行うと自動的に昇順でAが完成する
 
-//stack free
-//node free
-//array free
+// stack free
+// node free
+// array free
