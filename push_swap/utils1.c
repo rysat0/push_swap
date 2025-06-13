@@ -12,10 +12,9 @@
 
 #include "push_swap.h"
 
-
 static int	minus_judge_space_cut(const char *str, int *judge)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
@@ -32,16 +31,16 @@ static int	minus_judge_space_cut(const char *str, int *judge)
 
 long	ft_atol(const char *str)
 {
-	int i;
-	long long num;
-	int judge;
+	int			i;
+	long long	num;
+	int			judge;
 
 	num = LONG_MAX;
 	i = 0;
 	judge = 0;
 	i = minus_judge_space_cut(str, &judge);
 	if (str[i] >= '0' && str[i] <= '9')
-		num = 0; //文字ガード、数字のみ受け入れ
+		num = 0;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		if ((judge == 0 && num > INT_MAX) || (judge == 1 && num > (INT_MAX
@@ -51,7 +50,7 @@ long	ft_atol(const char *str)
 		i++;
 	}
 	if (str[i] != '\0')
-		return (LONG_MAX); //文字ガード、数字のみ受け入れ
+		return (LONG_MAX);
 	if (judge == 1)
 		num = -num;
 	return ((long)num);
@@ -59,7 +58,7 @@ long	ft_atol(const char *str)
 
 t_node	*make_new_node(int value)
 {
-	t_node *target;
+	t_node	*target;
 
 	target = malloc(sizeof(t_node));
 	if (target == NULL)
@@ -72,8 +71,8 @@ t_node	*make_new_node(int value)
 
 int	is_sorted(const t_stack *stack)
 {
-	t_node *ref;
-	int i;
+	t_node	*ref;
+	int		i;
 
 	i = 0;
 	ref = stack->top;
@@ -91,7 +90,8 @@ int	is_sorted(const t_stack *stack)
 
 void	node_free(t_stack *stack)
 {
-	t_node *next;
+	t_node	*next;
+
 	if (stack->size == 0 || stack->top == NULL)
 		return ;
 	while (stack->size > 1)

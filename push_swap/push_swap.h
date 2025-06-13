@@ -10,12 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include <limits.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <stdio.h>
 
 typedef struct s_node
 {
@@ -23,15 +21,12 @@ typedef struct s_node
 	struct s_node	*next;
 	struct s_node	*prev;
 }					t_node;
-//リストを構成する一つ一つの値
 
 typedef struct s_stack
 {
 	t_node	*top;
 	int		size;
 }			t_stack;
-//リストを管理する役割
-//循環リストの先頭を常に指している
 
 long	ft_atol(const char *str);
 void	push_first(t_stack *stack, t_node *target);
@@ -62,3 +57,5 @@ void	stack_free(t_stack *stack_a, t_stack *stack_b);
 int		malloc_initialize_stack(t_stack **stack_a, t_stack **stack_b);
 void	push_last(t_stack *stack, t_node *target);
 int		is_in_chunk(int ref, int low, int span);
+int		define_chunk_width(t_stack *stack_a, int *span);
+int		count_remain(t_stack *a, int low, int high);

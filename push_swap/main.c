@@ -12,7 +12,6 @@
 
 #include "push_swap.h"
 
-
 int	fill_stack_a(int argc, char **argv, t_stack *stack)
 {
 	ssize_t	i;

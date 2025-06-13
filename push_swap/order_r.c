@@ -43,7 +43,3 @@ void	rr(t_stack *stack_a, t_stack *stack_b)
 	write(1, "rr\n", 3);
 	return ;
 }
-
-// ra - Aの要素を一つずつ上にずらす - Aの先頭にあった要素は最後尾に回る
-// rb - raのBバージョン
-// rr - raとrbを同時に実行

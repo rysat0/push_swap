@@ -77,6 +77,3 @@ void	pb(t_stack *stack_a, t_stack *stack_b)
 	write(1, "pb\n", 3);
 	return ;
 }
-
-// pa - Bの先頭をAの先頭に送る(Bが空なら何もしない)
-// pb - Aの先頭をBの先頭に送る

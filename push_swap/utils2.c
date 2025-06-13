@@ -12,7 +12,6 @@
 
 #include "push_swap.h"
 
-
 void	stack_free(t_stack *stack_a, t_stack *stack_b)
 {
 	free(stack_a);
@@ -39,7 +38,7 @@ int	malloc_initialize_stack(t_stack **stack_a, t_stack **stack_b)
 
 void	push_last(t_stack *stack, t_node *target)
 {
-	t_node *last;
+	t_node	*last;
 
 	if (stack->size == 0)
 		stack->top = target;
@@ -60,4 +59,19 @@ int	is_in_chunk(int ref, int low, int span)
 	if (ref >= low && ref <= low + span - 1)
 		return (1);
 	return (0);
+}
+
+int	define_chunk_width(t_stack *stack_a, int *span)
+{
+	int	quantity;
+
+	quantity = 1;
+	if (stack_a->size <= 150 && quantity)
+		quantity = 5;
+	else
+		quantity = 9;
+	*span = ((stack_a->size + quantity - 1) / quantity);
+	if (*span == 0)
+		*span = 1;
+	return (quantity);
 }

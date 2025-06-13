@@ -46,7 +46,3 @@ void	ss(t_stack *stack_a, t_stack *stack_b)
 	swap_first_two(stack_b);
 	return ;
 }
-
-// sa - A[0]とA[1]を入れ替える（要素が0か1個なら何もしない）
-// sb - saのBバージョン
-// ss - saとsbを同時に実行

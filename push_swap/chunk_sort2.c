@@ -12,19 +12,17 @@
 
 #include "push_swap.h"
 
-
 static int	search_maxrank_index(const t_stack *stack)
 {
-	int i;
-	int index;
-	int max_rank;
-	const t_node *ref;
+	int				i;
+	int				index;
+	int				max_rank;
+	const t_node	*ref;
 
 	i = 1;
 	index = 0;
 	ref = stack->top;
 	max_rank = ref->value;
-
 	while (i < stack->size)
 	{
 		ref = ref->next;
@@ -40,7 +38,7 @@ static int	search_maxrank_index(const t_stack *stack)
 
 static void	rotate_shortest_b(t_stack *stack, int index)
 {
-	int half;
+	int	half;
 
 	half = (stack->size / 2);
 	if (index <= half)
@@ -63,7 +61,7 @@ static void	rotate_shortest_b(t_stack *stack, int index)
 
 void	push_to_a(t_stack *stack_a, t_stack *stack_b)
 {
-	int index;
+	int	index;
 
 	while (stack_b->size != 0)
 	{

@@ -12,7 +12,6 @@
 
 #include "push_swap.h"
 
-
 void	put_error_invalid(void)
 {
 	write(1, "Error\n", 6);

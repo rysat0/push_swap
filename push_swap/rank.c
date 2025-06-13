@@ -12,12 +12,11 @@
 
 #include "push_swap.h"
 
-
 static int	*array_copy(t_stack *stack)
 {
-	int *array;
-	ssize_t i;
-	t_node *ref;
+	int		*array;
+	ssize_t	i;
+	t_node	*ref;
 
 	i = 0;
 	array = malloc(sizeof(int) * stack->size);
@@ -35,9 +34,9 @@ static int	*array_copy(t_stack *stack)
 
 static int	sort_and_dupli_check(int *array, t_stack *stack)
 {
-	ssize_t i;
-	ssize_t j;
-	int tmp;
+	ssize_t	i;
+	ssize_t	j;
+	int		tmp;
 
 	i = 0;
 	tmp = 0;
@@ -60,7 +59,7 @@ static int	sort_and_dupli_check(int *array, t_stack *stack)
 
 static ssize_t	search_rank(int value, int *array)
 {
-	ssize_t rank;
+	ssize_t	rank;
 
 	rank = 0;
 	while (value != array[rank])
@@ -70,8 +69,8 @@ static ssize_t	search_rank(int value, int *array)
 
 static void	change_to_rank(t_stack *stack, int *array)
 {
-	ssize_t i;
-	t_node *ref;
+	ssize_t	i;
+	t_node	*ref;
 
 	ref = stack->top;
 	i = 0;
@@ -85,7 +84,7 @@ static void	change_to_rank(t_stack *stack, int *array)
 
 int	make_rank(t_stack *stack)
 {
-	int *array;
+	int	*array;
 
 	array = array_copy(stack);
 	if (array == NULL)

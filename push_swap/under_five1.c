@@ -5,26 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rysato <rysato@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 16:52:48 by rysato            #+#    #+#             */
-/*   Updated: 2025/06/04 16:52:48 by rysato           ###   ########.fr       */
+/*   Created: 2025/06/13 21:41:25 by rysato            #+#    #+#             */
+/*   Updated: 2025/06/13 21:41:25 by rysato           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-
 static void	sort_two(t_stack *stack_a)
 {
-	sa(stack_a); //ソート済みパターンは既に除外済み
+	sa(stack_a);
 	return ;
 }
 
 static void	sort_three(t_stack *stack_a)
 {
-	t_node *ref;
+	t_node	*ref;
 
 	ref = stack_a->top;
-	if (ref->value == 0) //一番上が0のパターンは1通りで確定
+	if (ref->value == 0)
 	{
 		ra(stack_a);
 		sa(stack_a);
@@ -45,11 +44,7 @@ static void	sort_three(t_stack *stack_a)
 
 static void	sort_four(t_stack *stack_a, t_stack *stack_b)
 {
-	// 0がトップに来るまでra or ref->prev == 0ならrra
-	// 0をpb
-	// sort_three_ver4でAスタックを成型
-	// 0をpaして終了
-	t_node *ref;
+	t_node	*ref;
 
 	ref = stack_a->top;
 	if (ref->value == 0)
@@ -71,10 +66,6 @@ static void	sort_four(t_stack *stack_a, t_stack *stack_b)
 
 static void	sort_five(t_stack *stack_a, t_stack *stack_b)
 {
-	// 0を一番上までraかrraでもってきてpb
-	// 1を一番上までraかrraでもってきてpb
-	// sort_three_var5でAスタックを形成
-	// pa2回で終了
 	if (stack_a->top->next->value == 0)
 		ra(stack_a);
 	else if (stack_a->top->next->next->value == 0)

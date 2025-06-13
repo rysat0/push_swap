@@ -12,14 +12,9 @@
 
 #include "push_swap.h"
 
-
 void	sort_four_ver5(t_stack *stack_a, t_stack *stack_b)
 {
-	// 01がトップに来るまでra or ref->prev->value == 1ならrra
-	// 1をpb
-	// sort_three_ver5でAスタックを成型
-	// 1をpaして終了
-	t_node *ref;
+	t_node	*ref;
 
 	ref = stack_a->top;
 	if (ref->value == 1)
@@ -41,7 +36,7 @@ void	sort_four_ver5(t_stack *stack_a, t_stack *stack_b)
 
 void	sort_three_ver5(t_stack *stack_a)
 {
-	t_node *ref;
+	t_node	*ref;
 
 	ref = stack_a->top;
 	if (ref->value == 2 || ref->next->value == 4)
@@ -65,7 +60,7 @@ void	sort_three_ver5(t_stack *stack_a)
 
 void	sort_three_ver4(t_stack *stack_a)
 {
-	t_node *ref;
+	t_node	*ref;
 
 	ref = stack_a->top;
 	if (ref->value == 1 || ref->next->value == 3)
