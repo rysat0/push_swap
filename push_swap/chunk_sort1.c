@@ -2,9 +2,12 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   chunk_sort1.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rysato <rysato@student.42tokyo.jp>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
+/*                                                    +:+ +:+
+	+:+     */
+/*   By: rysato <rysato@student.42tokyo.jp>         +#+  +:+
+	+#+        */
+/*                                                +#+#+#+#+#+
+	+#+           */
 /*   Created: 2025/06/04 16:53:53 by rysato            #+#    #+#             */
 /*   Updated: 2025/06/04 16:53:53 by rysato           ###   ########.fr       */
 /*                                                                            */
@@ -12,53 +15,120 @@
 
 #include "push_swap.h"
 
+
 static int	define_chunk_width(t_stack *stack_a, int *span)
 {
 	int quantity;
 
 	quantity = 1;
 	if (stack_a->size <= 150 && quantity)
-	{
-		*span = stack_a->size / 5;
-		if(*span == 0)
-			*span = 1;
-		return (5);
-	}
-	quantity = ((stack_a->size / 50) - 1);
-	printf("%d\n", quantity);
-	*span = stack_a->size / quantity;
-	return (9);
+		quantity = 5;
+	else
+		quantity = 9;
+	*span = ((stack_a->size + quantity - 1) / quantity);
+	if (*span == 0)
+		*span = 1;
+	return (quantity);
 }
 
-static void	push_to_b(t_stack *stack_a, t_stack *stack_b, int span,
-		int chunk_qua)
+int	search_shortest_a(t_stack *stack_a, int low, int high)
 {
-	int low;    //該当span範囲内最低ランク
-	int high;   //該当span範囲内最高ランク
-	int index;  //今何番目のチャンクを参照しているか
-	int pushed; // 1index内でBに送った数
+	int ra_idx;
+	int rra_idx;
+	t_node *ref;
 
-	index = 0;
-	while (index <= chunk_qua)
+	ra_idx = 0;
+	rra_idx = 0;
+	ref = stack_a->top;
+	while (!(ref->value >= low && ref->value <= high))
 	{
+		ra_idx++;
+		ref = ref->next;
+	}
+	ref = stack_a->top;
+	while (!(ref->value >= low && ref->value <= high))
+	{
+		rra_idx++;
+		ref = ref->prev;
+	}
+	if (ra_idx <= rra_idx)
+		return (ra_idx);
+	return (-(rra_idx));
+}
+void	rotate_a(t_stack *stack_a, int low, int span)
+{
+	int times;
+	times = search_shortest_a(stack_a, low, low + span - 1);
+	if (times > 0)
+	{
+		ra(stack_a);
+		times--;
+	}
+	else if (times < 0)
+	{
+		rra(stack_a);
+		times++;
+	}
+	return ;
+}
+
+void	push_to_b(t_stack *a, t_stack *b, int span, int k)
+{
+	int idx;    /* 1 */
+	int pushed; /* 2 */
+	int goal;   /* 3 */
+
+	for (idx = 0; idx < k && a->size; idx++)
+	{
+		goal = span;
+		if (idx == k - 1) /* 最後は残り全部 */
+			goal = a->size;
 		pushed = 0;
-		low = index * span;
-		high = ((index + 1) * span) - 1;
-		while (pushed < span && (stack_a->size != 0))
+		while (pushed < goal && a->size)
 		{
-			if (stack_a->top->value >= low && stack_a->top->value <= high)
+			if (is_in_chunk(a->top->value, idx * span, span))
 			{
-				pb(stack_a, stack_b);
+				pb(a, b);
 				pushed++;
-				if (stack_b->top->value < ((low + high) / 2))
-					rb(stack_b);
+				if (b->size > 1 && b->top->value <= idx * span + span / 3)
+					rb(b);
 			}
 			else
-				ra(stack_a);
+				rotate_a(a, idx * span, span);
 		}
-		index++;
 	}
 }
+
+// static void	push_to_b(t_stack *stack_a, t_stack *stack_b, int span,
+// 		int chunk_qua)
+// {
+// 	int low;    //該当span範囲内最低ランク
+// 	int high;   //該当span範囲内最高ランク
+// 	int index;  //今何番目のチャンクを参照しているか
+// 	int pushed; // 1index内でBに送った数
+
+// 	index = 0;
+// 	while (index <= chunk_qua)
+// 	{
+// 		pushed = 0;
+// 		low = index * span;
+// 		high = ((index + 1) * span) - 1;
+// 		while (pushed < span && (stack_a->size != 0))
+// 		{
+// 			if (stack_a->top->value >= low && stack_a->top->value <= high)
+// 			{
+// 				pb(stack_a, stack_b);
+// 				pushed++;
+// 				if (stack_b->top->value < ((low + high) / 2))
+// 					rb(stack_b);
+// 			}
+// 			else
+// 				// rotate_a(stack_a, search_shortest_a(stack_a, low, high));
+// 				ra(stack_a);//ここ
+// 		}
+// 		index++;
+// 	}
+// }
 
 void	chunk_sort(t_stack *stack_a, t_stack *stack_b)
 {
@@ -68,78 +138,3 @@ void	chunk_sort(t_stack *stack_a, t_stack *stack_b)
 	push_to_b(stack_a, stack_b, span, chunk_qua);
 	push_to_a(stack_a, stack_b);
 }
-
-
-
-// int search_shortest_a(t_stack *stack_a, int low, int high)
-// {
-// 	int forw;
-// 	int rev;
-// 	t_node *ref;
-
-// 	forw = 0;
-// 	rev = 0;
-// 	ref = stack_a->top;
-// 	while(forw < stack_a->size && !(ref->value >= low && ref->value <= high))
-// 	{
-// 		ref = ref->next;
-// 		forw++;
-// 	}
-// 	if(forw == stack_a->size)
-// 		return(0);
-// 	ref = stack_a->top;
-// 	while(rev < stack_a->size && !(ref->value >= low && ref->value <= high))
-// 	{
-// 		ref = ref->prev;
-// 		rev++;
-// 	}
-// 	if(forw <= rev)
-// 		return(forw);
-// 	return(-rev);
-// }
-
-// static void	push_to_b(t_stack *stack_a, t_stack *stack_b, int span,
-// 	int chunk_qua)
-// {
-// 	int low;
-// 	int high;
-// 	int index;
-// 	int pushed;
-// 	int goal;
-// 	int times;
-
-// 	index = 0;
-// 	while (index <= chunk_qua && stack_a->size)
-// 	{
-// 		pushed = 0;
-// 		low = index * span;
-// 		high = ((index + 1) * span) - 1;
-// 		if(index == chunk_qua)
-// 			goal = stack_a->size;
-// 		else
-// 			goal = span;
-// 		while (pushed < goal && (stack_a->size != 0))
-// 		{
-// 			// if(goal > stack_a->size)
-// 			// 	break;
-// 			if (stack_a->top->value >= low && stack_a->top->value <= high)
-// 			{
-// 				pb(stack_a, stack_b);
-// 				pushed++;
-// 				if (stack_b->size > 1 && stack_b->top->value < ((low + high) / 2))
-// 					rb(stack_b);
-// 			}
-// 			else
-// 			{
-// 				times = search_shortest_a(stack_a, low, high);
-// 				if (times == 0)            /* 該当要素がもう無い → チャンク終了 */
-//         			break;
-// 				while(times > 0 && times--)
-// 					ra(stack_a);
-// 				while(times < 0 && times++)
-// 					rra(stack_a);
-// 			}
-// 		}
-// 		index++;
-// 	}
-// }

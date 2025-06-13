@@ -54,3 +54,10 @@ void	push_last(t_stack *stack, t_node *target)
 	stack->size++;
 	return ;
 }
+
+int	is_in_chunk(int ref, int low, int span)
+{
+	if (ref >= low && ref <= low + span - 1)
+		return (1);
+	return (0);
+}
