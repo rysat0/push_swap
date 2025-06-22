@@ -6,26 +6,26 @@
 /*   By: rysato <rysato@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 21:31:06 by rysato            #+#    #+#             */
-/*   Updated: 2025/06/13 21:31:52 by rysato           ###   ########.fr       */
+/*   Updated: 2025/06/22 14:11:40 by rysato           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	count_remain(t_stack *a, int low, int high)
+int	count_remain(t_stack *stack_a, int low, int high)
 {
-	int		cnt;
+	int		count;
 	int		i;
-	t_node	*cur;
+	t_node	*ref;
 
-	cnt = 0;
+	count = 0;
 	i = 0;
-	cur = a->top;
-	while (i++ < a->size)
+	ref = stack_a->top;
+	while (i++ < stack_a->size)
 	{
-		if (cur->value >= low && cur->value <= high)
-			cnt++;
-		cur = cur->next;
+		if (ref->value >= low && ref->value <= high)
+			count++;
+		ref = ref->next;
 	}
-	return (cnt);
+	return (count);
 }

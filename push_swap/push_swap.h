@@ -28,13 +28,6 @@ typedef struct s_stack
 	int		size;
 }			t_stack;
 
-long	ft_atol(const char *str);
-void	push_first(t_stack *stack, t_node *target);
-t_node	*make_new_node(int value);
-int		make_rank(t_stack *stack);
-void	put_error_free(int *array);
-void	put_error_invalid(void);
-int		is_sorted(const t_stack *stack);
 void	pa(t_stack *stack_a, t_stack *stack_b);
 void	pb(t_stack *stack_a, t_stack *stack_b);
 void	ra(t_stack *stack_a);
@@ -46,6 +39,13 @@ void	rrr(t_stack *stack_a, t_stack *stack_b);
 void	sa(t_stack *stack_a);
 void	sb(t_stack *stack_b);
 void	ss(t_stack *stack_a, t_stack *stack_b);
+long	ft_atol(const char *str);
+void	push_first(t_stack *stack, t_node *target);
+t_node	*make_new_node(int value);
+int		make_rank(t_stack *stack);
+void	put_error_free(int *array);
+void	put_error_invalid(void);
+int		is_sorted(const t_stack *stack);
 void	under_five_pattern(t_stack *stack_a, t_stack *stack_b);
 void	sort_three_ver4(t_stack *stack_a);
 void	sort_three_ver5(t_stack *stack_a);

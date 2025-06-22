@@ -37,58 +37,59 @@ int	search_shortest_a(t_stack *stack_a, int low, int high)
 	return (-(rra_idx));
 }
 
-void	rotate_a(t_stack *a, int low, int span)
+void	rotate_a(t_stack *stack_a, int low, int span)
 {
 	int	step;
 
-	step = search_shortest_a(a, low, low + span - 1);
+	step = search_shortest_a(stack_a, low, low + span - 1);
 	while (step > 0)
 	{
-		ra(a);
+		ra(stack_a);
 		step--;
 	}
 	while (step < 0)
 	{
-		rra(a);
+		rra(stack_a);
 		step++;
 	}
 }
 
-static void	transfer_chunk(t_stack *a, t_stack *b, int low, int high)
+static void	transfer_chunk(t_stack *stack_a,
+			t_stack *stack_b, int low, int high)
 {
 	int	span;
 	int	todo;
 	int	pushed;
 
 	span = high - low + 1;
-	todo = count_remain(a, low, high);
+	todo = count_remain(stack_a, low, high);
 	pushed = 0;
-	while (pushed < todo && a->size)
+	while (pushed < todo && stack_a->size)
 	{
-		if (a->top->value >= low && a->top->value <= high)
+		if (stack_a->top->value >= low && stack_a->top->value <= high)
 		{
-			pb(a, b);
+			pb(stack_a, stack_b);
 			pushed++;
-			if (b->size > 1 && b->top->value <= low + span / 3)
-				rb(b);
+			if (stack_b->size > 1 && stack_b->top->value <= low + span / 3)
+				rb(stack_b);
 		}
 		else
-			rotate_a(a, low, span);
+			rotate_a(stack_a, low, span);
 	}
 }
 
-void	push_to_b(t_stack *a, t_stack *b, int span, int k)
+void	push_to_b(t_stack *stack_a, t_stack *stack_b, int span, int qua)
 {
 	int	idx;
 	int	low;
 	int	high;
 
 	idx = 0;
-	while (idx < k && a->size)
+	while (idx < qua && stack_a->size)
 	{
 		low = idx * span;
 		high = low + span - 1;
-		transfer_chunk(a, b, low, high);
+		transfer_chunk(stack_a, stack_b, low, high);
 		idx++;
 	}
 }

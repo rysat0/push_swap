@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int	fill_stack_a(int argc, char **argv, t_stack *stack)
+static int	fill_stack_a(int argc, char **argv, t_stack *stack)
 {
 	ssize_t	i;
 	ssize_t	tmp;
@@ -79,7 +79,3 @@ int	main(int argc, char **argv)
 //ランクの最大値をBから探し、最短手順(rbかrrb)で先頭に持ってきて、paでAに送る
 //次に大きい値をBから探し、最短手順で先頭に回し、Aに送る
 //これをBが空になるまで行うと自動的に昇順でAが完成する
-
-// stack free
-// node free
-// array free
